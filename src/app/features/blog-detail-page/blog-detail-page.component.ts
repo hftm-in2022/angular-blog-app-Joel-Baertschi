@@ -10,14 +10,20 @@ import { ActivatedRoute } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatCard } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BlogStore } from '../../core/stores/blog-state.store';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-blog-detail-page',
   standalone: true,
-  imports: [MatIcon, MatCard, RouterLink, CommonModule],
+  imports: [
+    MatIcon,
+    MatCard,
+    RouterLink,
+    CommonModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './blog-detail-page.component.html',
   styleUrls: ['./blog-detail-page.component.scss'], // korrigiert: styleUrls (Plural)
   changeDetection: ChangeDetectionStrategy.OnPush,
