@@ -20,7 +20,7 @@ export type Blog = {
   standalone: true,
   imports: [MatCardModule, MatButtonModule, MatIcon],
   templateUrl: './blog-overview-card.component.html',
-  styleUrl: './blog-overview-card.component.scss',
+  styleUrls: ['./blog-overview-card.component.scss'],
 })
 export class BlogOverviewCardComponent {
   @Input({ required: true }) blog!: Blog;
