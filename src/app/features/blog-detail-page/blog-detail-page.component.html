@@ -1,71 +1,80 @@
-@if (blog()) {
-  <div class="blog-container">
-    <div class="blog-header">
-      <h1 class="blog-title">{{ blog().title }}</h1>
-      <p class="blog-meta">
-        By <strong>{{ blog().author }}</strong> | Written:
-        {{ blog().createdAt }} | Last Updated: {{ blog().updatedAt }}
-      </p>
-    </div>
+<!-- Zeige Lade- oder Fehlerzustand an -->
+<div *ngIf="isLoadingDetail">Loading Blog Detail...</div>
+<div *ngIf="errorDetail as e">
+  <p style="color: red">{{ e }}</p>
+</div>
 
-    <div class="blog-content">
-      <p>{{ blog().content }}</p>
-    </div>
+<!-- Wenn Blog existiert, zeigen wir den Inhalt -->
+<div class="blog-container" *ngIf="blog as b">
+  <div class="blog-header">
+    <h1 class="blog-title">{{ b.title }}</h1>
+    <p class="blog-meta">
+      By <strong>{{ b.author }}</strong> | Written: {{ b.createdAt }} | Last
+      Updated: {{ b.updatedAt }}
+    </p>
+  </div>
 
-    <div class="blog-footer">
-      <div class="likes-comments">
-        <div class="icon-item">
-          <mat-icon>thumb_up</mat-icon>
-          <span>{{ blog().likes }}</span>
-        </div>
-      </div>
+  <div class="blog-content">
+    <p>{{ b.content }}</p>
+  </div>
 
-      <div class="user-info">
-        @if (blog().likedByMe) {
-          <p>You liked this post.</p>
-        }
-        @if (blog().createdByMe) {
-          <p>You created this post.</p>
-        }
+  <div class="blog-footer">
+    <div class="likes-comments">
+      <div class="icon-item">
+        <mat-icon>thumb_up</mat-icon>
+        <span>{{ b.likes }}</span>
       </div>
     </div>
 
-    <div class="blog-comments">
-      <h2
-        (click)="toggleComments()"
-        (keydown.enter)="toggleComments()"
-        tabindex="0"
-        class="comments-header"
-        [class.collapsed]="!showComments"
-      >
-        Comments ({{ selectedComments().length }})
-      </h2>
-      @if (showComments()) {
-        @for (comment of blog().comments; track comment.id) {
-          <div class="comment">
-            <p>
-              <Strong>{{ comment.author }} says:</Strong>
-            </p>
-            <p>{{ comment.content }}</p>
-            <p>
-              <small
-                ><strong>Created At:</strong> {{ comment.createdAt }}</small
-              >
-            </p>
-            <p>
-              <small
-                ><strong>Updated At:</strong> {{ comment.updatedAt }}</small
-              >
-            </p>
-          </div>
-        } @empty {
-          <p>No comments available.</p>
-        }
-      }
-    </div>
-
-    <div class="back-to-overview">
-      <a routerLink="/overview" class="overview-button">← Back to all Blogs</a>
+    <div class="user-info">
+      <p *ngIf="b.likedByMe">You liked this post.</p>
+      <p *ngIf="b.createdByMe">You created this post.</p>
     </div>
   </div>
-}
+
+  <div class="blog-comments">
+    <h2
+      (click)="toggleComments()"
+      (keydown.enter)="toggleComments()"
+      tabindex="0"
+      class="comments-header"
+      [class.collapsed]="!showComments()"
+    >
+      Comments ({{ selectedComments().length }})
+    </h2>
+
+    <!-- Nur anzeigen, wenn showComments() true ist -->
+    <div *ngIf="showComments()">
+      <!-- Falls es Kommentare gibt -->
+      <div *ngIf="selectedComments().length > 0; else noComments">
+        <div
+          class="comment"
+          *ngFor="let comment of selectedComments(); trackBy: trackComment"
+        >
+          <p>
+            <strong>{{ comment.author }} says:</strong>
+          </p>
+          <p>{{ comment.content }}</p>
+          <p>
+            <small>
+              <strong>Created At:</strong> {{ comment.createdAt }}
+            </small>
+          </p>
+          <p>
+            <small>
+              <strong>Updated At:</strong> {{ comment.updatedAt }}
+            </small>
+          </p>
+        </div>
+      </div>
+      <!-- Fallback, wenn keine Kommentare -->
+      <ng-template #noComments>
+        <p>No comments available.</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="back-to-overview">
+    <a routerLink="/overview" class="overview-button"> ← Back to all Blogs </a>
+  </div>
+</div>
