@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const APP_ROUTES: Routes = [
   {
@@ -12,10 +13,15 @@ export const APP_ROUTES: Routes = [
       import('./features/blog-overview-page/blog-overview-page.routes'),
   },
 
-  // lazy Load für BlogDetail
   {
     path: 'detail',
     loadChildren: () =>
       import('./features/blog-detail-page/blog-detail-page.routes'),
+  },
+
+  {
+    path: 'add-blog',
+    loadChildren: () => import('./features/add-blog-page/add-blog-page.routes'),
+    canActivate: [authGuard],
   },
 ];
