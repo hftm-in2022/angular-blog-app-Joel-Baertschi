@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { z } from 'zod';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 const BlogSchema = z.object({
   id: z.number(),
@@ -52,6 +53,7 @@ export type BlogDetails = z.infer<typeof BlogDetailsSchema>;
 })
 export class BlogBackendService {
   httpClient = inject(HttpClient);
+  private oidcSecurityService = inject(OidcSecurityService);
 
   getBlogPosts(): Observable<Entries> {
     return this.httpClient
@@ -63,5 +65,26 @@ export class BlogBackendService {
     return this.httpClient
       .get<BlogDetails>(`${environment.serviceUrl}/entries/${id}`)
       .pipe(map((blogDetails) => BlogDetailsSchema.parse(blogDetails)));
+  }
+
+  checkTitleExists(title: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(
+      `${environment.serviceUrl}/check-title?title=${title}`,
+    );
+  }
+
+  addBlog(blog: { title: string; content: string }): Observable<Blog> {
+    return this.oidcSecurityService.getAccessToken().pipe(
+      switchMap((token) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        });
+        return this.httpClient.post<Blog>(
+          `${environment.serviceUrl}/entries`,
+          blog,
+          { headers },
+        );
+      }),
+    );
   }
 }
