@@ -1,0 +1,90 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar (Nur auf mobilen Geräten sichtbar) -->
+  <mat-sidenav
+    #drawer
+    mode="side"
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'push' : 'side'"
+  >
+    <div class="sidenav-header">
+      <!-- Logo -->
+      @if (authService.isAuthenticated$ | async) {
+        <p class="user-name">{{ authService.userName$ | async }}</p>
+      } @else {
+        <p class="user-name">Gast</p>
+      }
+    </div>
+
+    <!-- Navigation -->
+    <mat-nav-list>
+      <a mat-list-item routerLink="/overview" routerLinkActive="active"
+        >Overview</a
+      >
+
+      <!-- Add Blog Button (Nur wenn Benutzer eingeloggt ist) -->
+      @if (authService.isAuthenticated$ | async) {
+        <a mat-list-item routerLink="/add-blog" routerLinkActive="active"
+          >Add Blog</a
+        >
+      }
+    </mat-nav-list>
+
+    <!-- Auth Buttons -->
+    <div class="auth-actions">
+      @if (authService.isAuthenticated$ | async) {
+        <button mat-button class="logout-button" (click)="logout()">
+          Logout
+        </button>
+      } @else {
+        <button mat-button class="login-button" (click)="login()">Login</button>
+      }
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      <!-- Hamburger Menu Button (Nur auf mobilen Geräten sichtbar) -->
+      @if (isHandset$ | async) {
+        <button
+          mat-icon-button
+          class="menu-button"
+          aria-label="Toggle navigation"
+          (click)="drawer.toggle()"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      }
+
+      <!-- App Title -->
+      <span>Blog App</span>
+
+      <!-- Navigation und Auth Buttons (Nur auf Desktop sichtbar) -->
+      @if ((isHandset$ | async) === false) {
+        <div class="nav-links">
+          <a mat-button routerLink="/overview" routerLinkActive="active"
+            >Overview</a
+          >
+          @if (authService.isAuthenticated$ | async) {
+            <a mat-button routerLink="/add-blog" routerLinkActive="active"
+              >Add Blog</a
+            >
+            <button mat-button class="logout-button" (click)="logout()">
+              Logout
+            </button>
+          } @else {
+            <button mat-button class="login-button" (click)="login()">
+              Login
+            </button>
+          }
+        </div>
+        <span>{{ authService.userName$ | async }}</span>
+      }
+    </mat-toolbar>
+
+    <!-- Content -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
