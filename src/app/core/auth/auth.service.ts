@@ -36,7 +36,7 @@ export class AuthService {
     });
   }
 
-  get isAuthenticated(): Observable<boolean> {
+  get isAuthenticated$(): Observable<boolean> {
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map((result: AuthenticatedResult) => result.isAuthenticated),
     );
