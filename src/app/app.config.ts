@@ -5,6 +5,8 @@ import { APP_ROUTES } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { GlobalErrorHandler } from './core/services/global-error-handler.service';
+import { authConfig } from './core/auth/auth.config';
+import { provideAuth } from 'angular-auth-oidc-client';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +18,6 @@ export const appConfig: ApplicationConfig = {
     },
     provideAnimationsAsync(),
     provideHttpClient(),
+    provideAuth(authConfig),
   ],
 };

@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="header-container">
+    <h1 class="logo"><a routerLink="/">Blog App</a></h1>
+
+    <button
+      class="add-blog-button"
+      routerLink="/add-blog"
+      routerLinkActive="router-link-active"
+    >
+      Add Blog
+    </button>
+    <!-- Benutzername und Login-/Logout-Button rechts -->
+    <div class="auth-actions">
+      <ng-container
+        *ngIf="authService.isAuthenticated | async; else notAuthenticated"
+      >
+        <p class="user-name">{{ authService.userName$ | async }}</p>
+        <button (click)="logout()">Logout</button>
+      </ng-container>
+
+      <ng-template #notAuthenticated>
+        <button (click)="login()">Login</button>
+      </ng-template>
+    </div>
+  </div>
+</header>
