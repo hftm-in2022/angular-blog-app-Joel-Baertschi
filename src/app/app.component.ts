@@ -11,9 +11,8 @@ import { AuthService } from './core/auth/auth.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  private readonly authService = inject(AuthService);
-
   title = 'blog-app';
+  private readonly authService = inject(AuthService);
 
   ngOnInit(): void {
     this.authService.initializeAuth(); // Sicherstellen, dass der Auth-Status überprüft wird
