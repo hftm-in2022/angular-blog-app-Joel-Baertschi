@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { BlogOverviewPageComponent } from './features/blog-overview-page/blog-overview-page.component';
 
 export const APP_ROUTES: Routes = [
   {
@@ -9,7 +8,8 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'overview',
-    component: BlogOverviewPageComponent,
+    loadChildren: () =>
+      import('./features/blog-overview-page/blog-overview-page.routes'),
   },
 
   // lazy Load für BlogDetail
