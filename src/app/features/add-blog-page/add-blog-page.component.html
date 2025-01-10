@@ -1,0 +1,62 @@
+<div class="add-blog-page">
+  <h2>Neuen Blog hinzufügen</h2>
+  <form [formGroup]="blogForm" class="blog-form">
+    <!-- Titel -->
+    <div class="form-group">
+      <label for="title">Titel</label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        [class.invalid]="title?.invalid && title?.touched"
+      />
+      <div class="error" *ngIf="title?.invalid && title?.touched">
+        <small *ngIf="title?.errors?.['required']"
+          >Titel ist erforderlich.</small
+        >
+        <small *ngIf="title?.errors?.['minlength']">
+          Titel muss mindestens 3 Zeichen lang sein.
+        </small>
+        <small *ngIf="title?.errors?.['titleExists']">
+          Der Titel existiert bereits.
+        </small>
+      </div>
+    </div>
+
+    <!-- Inhalt -->
+    <div class="form-group">
+      <label for="content">Inhalt</label>
+      <textarea
+        id="content"
+        formControlName="content"
+        [class.invalid]="content?.invalid && content?.touched"
+      ></textarea>
+      <div class="error" *ngIf="content?.invalid && content?.touched">
+        <small *ngIf="content?.errors?.['required']"
+          >Inhalt ist erforderlich.</small
+        >
+        <small *ngIf="content?.errors?.['minlength']">
+          Inhalt muss mindestens 10 Zeichen lang sein.
+        </small>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-actions">
+      <button type="button" (click)="onReset()" class="btn reset">
+        Zurücksetzen
+      </button>
+      <button
+        type="button"
+        (click)="onSave()"
+        class="btn save"
+        [disabled]="blogForm.invalid || isSaving"
+      >
+        <ng-container *ngIf="!isSaving">Speichern</ng-container>
+        <ng-container *ngIf="isSaving">
+          <span class="spinner"></span> Speichern...
+        </ng-container>
+      </button>
+    </div>
+  </form>
+</div>

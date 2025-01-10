@@ -1,3 +1,34 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
-export const routes: Routes = [];
+export const APP_ROUTES: Routes = [
+  {
+    path: '',
+    redirectTo: 'overview',
+    pathMatch: 'full',
+  },
+  {
+    path: 'overview',
+    loadChildren: () =>
+      import('./features/blog-overview-page/blog-overview-page.routes'),
+  },
+
+  {
+    path: 'detail',
+    loadChildren: () =>
+      import('./features/blog-detail-page/blog-detail-page.routes'),
+  },
+
+  {
+    path: 'add-blog',
+    loadChildren: () => import('./features/add-blog-page/add-blog-page.routes'),
+    canActivate: [authGuard],
+  },
+  {
+    path: '**', // Wildcard-Route für unbekannte Pfade
+    loadComponent: () =>
+      import(
+        './features/app-page-not-found-page/app-page-not-found-page.component'
+      ).then((m) => m.AppPageNotFoundPageComponent),
+  },
+];

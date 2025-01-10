@@ -1,0 +1,51 @@
+.sidenav-container {
+  height: 100vh;
+
+  .sidenav {
+    width: 250px;
+    background-color: #f4f4f4;
+
+    mat-nav-list {
+      padding: 0;
+
+      a.mat-list-item {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #333;
+      }
+
+      a.mat-list-item.active {
+        background-color: #007bff;
+        color: white;
+      }
+
+      button.mat-list-item {
+        color: #007bff;
+        font-size: 1rem;
+      }
+    }
+
+    .user-name {
+      background-color: #007bff; /* Blau */
+      color: white; /* Weißer Text */
+      padding: 10px; /* Innenabstand */
+      font-weight: bold; /* Fettgedruckt */
+      text-align: center; /* Zentrierter Text */
+      width: 100%; /* Ganze Breite */
+      display: block; /* Als Blockelement */
+      margin: 0 auto; /* Zentrierung in einem flexiblen Layout */
+    }
+  }
+
+  .toolbar {
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .menu-button {
+      margin-right: 1rem;
+    }
+  }
+}

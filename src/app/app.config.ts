@@ -1,18 +1,24 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { loggingInterceptor } from './interceptors/logging.interceptor';
-
-import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { ErrorHandler } from '@angular/core';
+import { APP_ROUTES } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { GlobalErrorHandler } from './core/services/global-error-handler.service';
+import { authConfig } from './core/auth/auth.config';
+import { provideAuth } from 'angular-auth-oidc-client';
+import { loggingInterceptor } from './core/interceptors/logging.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideClientHydration(),
+    provideRouter(APP_ROUTES, withComponentInputBinding()),
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler,
+    },
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([loggingInterceptor])),
+    provideAuth(authConfig),
   ],
 };
