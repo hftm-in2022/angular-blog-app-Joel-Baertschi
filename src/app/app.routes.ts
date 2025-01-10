@@ -24,4 +24,11 @@ export const APP_ROUTES: Routes = [
     loadChildren: () => import('./features/add-blog-page/add-blog-page.routes'),
     canActivate: [authGuard],
   },
+  {
+    path: '**', // Wildcard-Route für unbekannte Pfade
+    loadComponent: () =>
+      import(
+        './features/app-page-not-found-page/app-page-not-found-page.component'
+      ).then((m) => m.AppPageNotFoundPageComponent),
+  },
 ];
