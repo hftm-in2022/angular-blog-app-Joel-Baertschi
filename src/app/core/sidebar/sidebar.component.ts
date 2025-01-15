@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
   ],
 })
 export class SidebarComponent implements OnInit {
-  @ViewChild('drawer') drawer!: MatSidenav;
+  @ViewChild('drawer') drawer!: MatSidenav; // besser ViewChild Signals verwenden
   private breakpointObserver = inject(BreakpointObserver);
   constructor(public authService: AuthService) {}
 
@@ -42,12 +42,13 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     // Abonniere den Benutzernamen und gebe ihn in der Konsole aus
     this.authService.userName$.subscribe((userName) => {
+      // besser über async pipe
       if (userName) {
         console.log('Benutzername:', userName);
       }
     });
 
-    this.breakpointObserver
+    this.breakpointObserver // zweimal observer
       .observe([Breakpoints.Handset])
       .subscribe((result) => {
         if (!result.matches && this.drawer && this.drawer.opened) {

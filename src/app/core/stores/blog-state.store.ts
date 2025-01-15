@@ -10,7 +10,8 @@ import {
 } from '../services/blog-backend.service';
 
 // Unser State-Typ
-export interface BlogState {
+export type BlogState = {
+  // bitte types anstelle Interfaces benutzen
   // LISTE
   entries: Entries | null;
   isLoadingList: boolean;
@@ -48,6 +49,7 @@ export const BlogStore = signalStore(
   withMethods((store, blogBackend = inject(BlogBackendService)) => ({
     // --------- LISTE laden ---------
     loadAll() {
+      // für asynchrone Methoden rxMethoden rxMethod verwenden https://ngrx.io/api/signals/rxjs-interop/rxMethod
       patchState(store, {
         isLoadingList: true,
         errorList: null,
@@ -55,6 +57,7 @@ export const BlogStore = signalStore(
 
       // Observable-Aufruf via subscribe (du könntest auch rxMethod nutzen)
       blogBackend.getBlogPosts().subscribe({
+        // Subscribe innerhalb Methode vermeiden, besser mit Promises arbeiten
         next: (entries) => {
           patchState(store, {
             entries,
@@ -80,6 +83,7 @@ export const BlogStore = signalStore(
       });
 
       blogBackend.getBlogById(blogId).subscribe({
+        // Subscribe innerhalb Methode vermeiden, besser mit Promises arbeiten
         next: (blogDetails) => {
           patchState(store, {
             selectedBlog: blogDetails,

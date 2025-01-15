@@ -14,11 +14,13 @@ export const authGuard: CanActivateFn = () => {
 
   return new Promise<boolean>((resolve) => {
     oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
+      // besser mit Promise oder Observable Rückgabetyp
       if (!isAuthenticated) {
         router.navigate(['']);
         resolve(false);
       } else {
         oidcSecurityService.getAccessToken().subscribe((accessToken) => {
+          // doppelter subscribe
           if (accessToken && hasRole(accessToken, 'user')) {
             resolve(true);
           } else {

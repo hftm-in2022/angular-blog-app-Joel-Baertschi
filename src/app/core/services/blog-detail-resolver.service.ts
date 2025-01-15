@@ -7,6 +7,7 @@ import { BlogDetails, BlogBackendService } from './blog-backend.service';
   providedIn: 'root',
 })
 export class BlogDetailResolver implements Resolve<BlogDetails> {
+  // resolver function anstelle Klasse verwenden
   constructor(private blogService: BlogBackendService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<BlogDetails> {

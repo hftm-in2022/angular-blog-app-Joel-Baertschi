@@ -38,7 +38,7 @@ export class BlogDetailPageComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const blogId = Number(this.route.snapshot.paramMap.get('id'));
+    const blogId = Number(this.route.snapshot.paramMap.get('id')); // warum nicht den Blog injecten lassen, du lädst den Blog im resolver und dann erneut im OnInit (zweimal)
     if (blogId) {
       this.store.loadById(blogId);
     }

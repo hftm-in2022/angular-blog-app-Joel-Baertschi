@@ -28,7 +28,7 @@ export class AuthService {
   logout(): void {
     this.oidcSecurityService.logoff().subscribe({
       next: () => {
-        console.log('Logout erfolgreich');
+        console.log('Logout erfolgreich'); // viele console.logs.
       },
       error: (err) => {
         console.error('Logout Fehler:', err);
@@ -37,6 +37,7 @@ export class AuthService {
   }
 
   get isAuthenticated$(): Observable<boolean> {
+    // warum nicht ein einfaches Field als isAuthenticated$?
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map((result: AuthenticatedResult) => result.isAuthenticated),
     );

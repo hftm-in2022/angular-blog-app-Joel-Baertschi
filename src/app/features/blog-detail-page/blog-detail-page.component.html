@@ -55,6 +55,7 @@
       <div *ngIf="showComments()">
         <!-- Falls es Kommentare gibt -->
         <div *ngIf="selectedComments().length > 0; else noComments">
+          <!-- besser flow control syntax verwenden -->
           <div
             class="comment"
             *ngFor="let comment of selectedComments(); trackBy: trackComment"

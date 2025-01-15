@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -23,5 +22,5 @@ export type Blog = {
   styleUrls: ['./blog-overview-card.component.scss'],
 })
 export class BlogOverviewCardComponent {
-  @Input({ required: true }) blog!: Blog;
+  @Input({ required: true }) blog!: Blog; // besser signals verwenden
 }

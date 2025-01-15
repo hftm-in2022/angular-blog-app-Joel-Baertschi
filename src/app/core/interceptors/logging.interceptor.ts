@@ -10,6 +10,7 @@ export const loggingInterceptor: HttpInterceptorFn = (req, next) => {
   });
 
   return next(req).pipe(
+    // warum hier pipe, der Request wurde doch schon geloggt..
     tap({
       next: (event) => {
         console.log('HTTP response:', {

@@ -14,6 +14,8 @@ export class GlobalErrorHandler implements ErrorHandler {
     console.error('GlobalErrorHandler:', error);
   }
 
+  // woher kommt dieser Code?
+
   /*
   Nicht mein Backend deshalb weggelassen
 

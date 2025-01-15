@@ -16,6 +16,7 @@ export class BlogTitleValidator {
     }
 
     return this.blogService.checkTitleExists(control.value).pipe(
+      // gute Idee, aber leider funktioniert der Endpoint nicht
       map((exists) => (exists ? { titleExists: true } : null)),
       catchError(() => of(null)),
     );
