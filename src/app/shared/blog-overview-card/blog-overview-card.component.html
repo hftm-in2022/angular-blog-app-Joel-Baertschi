@@ -1,8 +1,8 @@
-<mat-card class="blog-card">
+<mat-card class="blog-card" data-testid="blog-card">
   <mat-card-header>
-    <mat-card-title class="card-title" data-testid="title">{{
-      blog.title
-    }}</mat-card-title>
+    <mat-card-title class="card-title" data-testid="title">
+      {{ blog.title }}
+    </mat-card-title>
   </mat-card-header>
   @defer (on viewport) {
     <img
@@ -11,25 +11,31 @@
       mat-card-image
       src="{{ 'https://picsum.photos/seed/' + blog.id + '/348/300' }}"
       alt="Random Photo"
+      data-testid="blog-image"
     />
   } @placeholder {
     <img alt="image of the blog" height="300" class="blog-image" />
   }
-  <mat-card-content>
+  <mat-card-content data-testid="content-preview">
     <p>{{ blog.contentPreview }}</p>
   </mat-card-content>
-  <mat-card-footer class="blog-footer">
-    <mat-card-content class="blog-author">
-      <p>{{ blog.author }}</p>
+  <mat-card-footer class="blog-footer" data-testid="blog-footer">
+    <mat-card-content class="blog-author" data-testid="blog-author">
+      <p>Written by: {{ blog.author }}</p>
     </mat-card-content>
-    <mat-card-actions MatCardActions.align="end">
+    <mat-card-actions MatCardActions.align="end" data-testid="blog-actions">
       <button
         mat-icon-button
-        aria-label="Example icon button with a heart icon"
+        aria-label="Like this blog"
+        data-testid="like-button"
       >
         <mat-icon>favorite</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Example icon button with a shareicon">
+      <button
+        mat-icon-button
+        aria-label="Share this blog"
+        data-testid="share-button"
+      >
         <mat-icon>share</mat-icon>
       </button>
     </mat-card-actions>
