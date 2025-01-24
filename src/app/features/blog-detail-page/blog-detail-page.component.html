@@ -6,7 +6,7 @@
       mode="indeterminate"
       diameter="50"
     ></mat-progress-spinner>
-    <p>Loading data...</p>
+    <p>{{ "BLOG.LOADING" | translate }}</p>
   </div>
   <div *ngIf="errorDetail as e">
     <p style="color: red">{{ e }}</p>
@@ -17,8 +17,9 @@
     <div class="blog-header">
       <h1 class="blog-title">{{ b.title }}</h1>
       <p class="blog-meta">
-        By <strong>{{ b.author }}</strong> | Written: {{ b.createdAt }} | Last
-        Updated: {{ b.updatedAt }}
+        {{ "BLOG.AUTHOR" | translate }} <strong>{{ b.author }}</strong> |
+        {{ "BLOG.WRITTEN" | translate }}: {{ b.createdAt }} |
+        {{ "BLOG.UPDATED" | translate }}: {{ b.updatedAt }}
       </p>
     </div>
 
@@ -35,8 +36,8 @@
       </div>
 
       <div class="user-info">
-        <p *ngIf="b.likedByMe">You liked this post.</p>
-        <p *ngIf="b.createdByMe">You created this post.</p>
+        <p *ngIf="b.likedByMe">{{ "BLOG.LIKED_BY_ME" | translate }}</p>
+        <p *ngIf="b.createdByMe">{{ "BLOG.CREATED_BY_ME" | translate }}</p>
       </div>
     </div>
 
@@ -48,7 +49,7 @@
         class="comments-header"
         [class.collapsed]="!showComments()"
       >
-        Comments ({{ selectedComments().length }})
+        {{ "BLOG.COMMENTS" | translate }} ({{ selectedComments().length }})
       </h2>
 
       <!-- Nur anzeigen, wenn showComments() true ist -->
@@ -60,31 +61,36 @@
             *ngFor="let comment of selectedComments(); trackBy: trackComment"
           >
             <p>
-              <strong>{{ comment.author }} says:</strong>
+              <strong
+                >{{ comment.author }}
+                {{ "BLOG.COMMENT_SAYS" | translate }}</strong
+              >
             </p>
             <p>{{ comment.content }}</p>
             <p>
               <small>
-                <strong>Created At:</strong> {{ comment.createdAt }}
+                <strong>{{ "BLOG.COMMENT_CREATED_AT" | translate }}</strong
+                >: {{ comment.createdAt }}
               </small>
             </p>
             <p>
               <small>
-                <strong>Updated At:</strong> {{ comment.updatedAt }}
+                <strong>{{ "BLOG.COMMENT_UPDATED_AT" | translate }}</strong
+                >: {{ comment.updatedAt }}
               </small>
             </p>
           </div>
         </div>
         <!-- Fallback, wenn keine Kommentare -->
         <ng-template #noComments>
-          <p>No comments available.</p>
+          <p>{{ "BLOG.NO_COMMENTS" | translate }}</p>
         </ng-template>
       </div>
     </div>
 
     <div class="back-to-overview">
       <a routerLink="/overview" class="overview-button">
-        ← Back to all Blogs
+        ← {{ "BLOG.BACK_TO_OVERVIEW" | translate }}
       </a>
     </div>
   </div>

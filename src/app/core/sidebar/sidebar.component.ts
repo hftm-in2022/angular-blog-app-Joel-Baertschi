@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
 import { RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,12 +26,23 @@ import { RouterModule } from '@angular/router';
     AsyncPipe,
     CommonModule,
     RouterModule,
+    TranslateModule,
   ],
 })
 export class SidebarComponent implements OnInit {
+  languages = ['en', 'de'];
+
   @ViewChild('drawer') drawer!: MatSidenav;
   private breakpointObserver = inject(BreakpointObserver);
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private translate: TranslateService,
+  ) {
+    // Sprachen konfigurieren und Standard-Sprache setzen
+    this.translate.addLangs(this.languages);
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
+  }
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -63,5 +75,9 @@ export class SidebarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
   }
 }

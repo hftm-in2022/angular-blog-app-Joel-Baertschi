@@ -10,30 +10,34 @@
       class="blog-image"
       mat-card-image
       src="{{ 'https://picsum.photos/seed/' + blog.id + '/348/300' }}"
-      alt="Random Photo"
+      alt="{{ 'BLOG.IMAGE_ALT' | translate }}"
       data-testid="blog-image"
     />
   } @placeholder {
-    <img alt="image of the blog" height="300" class="blog-image" />
+    <img
+      alt="{{ 'BLOG.PLACEHOLDER_ALT' | translate }}"
+      height="300"
+      class="blog-image"
+    />
   }
   <mat-card-content data-testid="content-preview">
     <p>{{ blog.contentPreview }}</p>
   </mat-card-content>
   <mat-card-footer class="blog-footer" data-testid="blog-footer">
     <mat-card-content class="blog-author" data-testid="blog-author">
-      <p>Written by: {{ blog.author }}</p>
+      <p>{{ "BLOG.AUTHOR" | translate }}: {{ blog.author }}</p>
     </mat-card-content>
     <mat-card-actions MatCardActions.align="end" data-testid="blog-actions">
       <button
         mat-icon-button
-        aria-label="Like this blog"
+        aria-label="'BLOG.LIKE' | translate"
         data-testid="like-button"
       >
         <mat-icon>favorite</mat-icon>
       </button>
       <button
         mat-icon-button
-        aria-label="Share this blog"
+        aria-label="'BLOG.SHARE' | translate"
         data-testid="share-button"
       >
         <mat-icon>share</mat-icon>

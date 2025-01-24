@@ -9,25 +9,34 @@
     [mode]="(isHandset$ | async) ? 'push' : 'side'"
   >
     <div class="sidenav-header">
+      <div>
+        <button (click)="switchLanguage('en')">English</button>
+        <button (click)="switchLanguage('de')">Deutsch</button>
+      </div>
       <!-- Logo -->
       @if (authService.isAuthenticated$ | async) {
-        <p class="user-name">{{ authService.userName$ | async }}</p>
+        <p class="user-name">
+          {{
+            "USER_NAME"
+              | translate: { userName: (authService.userName$ | async) }
+          }}
+        </p>
       } @else {
-        <p class="user-name">Gast</p>
+        <p class="user-name">{{ "MENU.GUEST" | translate }}</p>
       }
     </div>
 
     <!-- Navigation -->
     <mat-nav-list>
-      <a mat-list-item routerLink="/overview" routerLinkActive="active"
-        >Overview</a
-      >
+      <a mat-list-item routerLink="/overview" routerLinkActive="active">{{
+        "MENU.OVERVIEW" | translate
+      }}</a>
 
       <!-- Add Blog Button (Nur wenn Benutzer eingeloggt ist) -->
       @if (authService.isAuthenticated$ | async) {
-        <a mat-list-item routerLink="/add-blog" routerLinkActive="active"
-          >Add Blog</a
-        >
+        <a mat-list-item routerLink="/add-blog" routerLinkActive="active">{{
+          "MENU.ADD_BLOG" | translate
+        }}</a>
       }
     </mat-nav-list>
 
@@ -35,10 +44,12 @@
     <div class="auth-actions">
       @if (authService.isAuthenticated$ | async) {
         <button mat-button class="logout-button" (click)="logout()">
-          Logout
+          {{ "MENU.LOGOUT" | translate }}
         </button>
       } @else {
-        <button mat-button class="login-button" (click)="login()">Login</button>
+        <button mat-button class="login-button" (click)="login()">
+          {{ "MENU.LOGIN" | translate }}
+        </button>
       }
     </div>
   </mat-sidenav>
@@ -59,29 +70,33 @@
       }
 
       <!-- App Title -->
-      <span>Blog App</span>
+      <span>{{ "APP_TITLE" | translate }}</span>
 
       <!-- Navigation und Auth Buttons (Nur auf Desktop sichtbar) -->
       @if ((isHandset$ | async) === false) {
         <div class="nav-links">
-          <a mat-button routerLink="/overview" routerLinkActive="active"
-            >Overview</a
-          >
+          <a mat-button routerLink="/overview" routerLinkActive="active">{{
+            "MENU.OVERVIEW" | translate
+          }}</a>
           @if (authService.isAuthenticated$ | async) {
-            <a mat-button routerLink="/add-blog" routerLinkActive="active"
-              >Add Blog</a
-            >
+            <a mat-button routerLink="/add-blog" routerLinkActive="active">{{
+              "MENU.ADD_BLOG" | translate
+            }}</a>
             <button mat-button class="logout-button" (click)="logout()">
-              Logout
+              {{ "MENU.LOGOUT" | translate }}
             </button>
           } @else {
             <button mat-button class="login-button" (click)="login()">
-              Login
+              {{ "MENU.LOGIN" | translate }}
             </button>
           }
         </div>
         <span>{{ authService.userName$ | async }}</span>
       }
+      <div>
+        <button mat-button (click)="switchLanguage('en')">EN</button>
+        <button mat-button (click)="switchLanguage('de')">DE</button>
+      </div>
     </mat-toolbar>
 
     <!-- Content -->

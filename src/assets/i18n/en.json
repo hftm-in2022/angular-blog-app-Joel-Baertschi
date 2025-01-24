@@ -1,0 +1,28 @@
+{
+    "APP_TITLE": "Blog App",
+    "MENU": {
+      "OVERVIEW": "Overview",
+      "ADD_BLOG": "Add Blog",
+      "LOGIN": "Login",
+      "LOGOUT": "Logout",
+      "GUEST": "Guest"
+    },
+    "BLOG": {
+      "IMAGE_ALT": "Random Photo",
+      "PLACEHOLDER_ALT": "Image of the blog",
+      "AUTHOR": "Written by",
+      "LIKE": "Like this blog",
+      "SHARE": "Share this blog",
+      "LOADING": "Loading data...",
+      "WRITTEN": "Written",
+      "UPDATED": "Last Updated",
+      "LIKED_BY_ME": "You liked this post.",
+      "CREATED_BY_ME": "You created this post.",
+      "COMMENTS": "Comments",
+      "COMMENT_SAYS": "says:",
+      "COMMENT_CREATED_AT": "Created At",
+      "COMMENT_UPDATED_AT": "Updated At",
+      "NO_COMMENTS": "No comments available.",
+      "BACK_TO_OVERVIEW": "Back to all Blogs"
+    }
+  }
