@@ -1,0 +1,29 @@
+{
+    "APP_TITLE": "Blog App",
+    "MENU": {
+      "OVERVIEW": "Übersicht",
+      "ADD_BLOG": "Blog hinzufügen",
+      "LOGIN": "Anmelden",
+      "LOGOUT": "Abmelden",
+      "GUEST": "Gast"
+    },
+    "BLOG": {
+      "IMAGE_ALT": "Zufälliges Foto",
+      "PLACEHOLDER_ALT": "Bild des Blogs",
+      "AUTHOR": "Geschrieben von",
+      "LIKE": "Diesen Blog mögen",
+      "SHARE": "Diesen Blog teilen",
+      "LOADING": "Daten werden geladen...",
+      "WRITTEN": "Geschrieben",
+      "UPDATED": "Zuletzt aktualisiert",
+      "LIKED_BY_ME": "Du hast diesen Beitrag geliked.",
+      "CREATED_BY_ME": "Du hast diesen Beitrag erstellt.",
+      "COMMENTS": "Kommentare",
+      "COMMENT_SAYS": "sagt:",
+      "COMMENT_CREATED_AT": "Erstellt am",
+      "COMMENT_UPDATED_AT": "Aktualisiert am",
+      "NO_COMMENTS": "Keine Kommentare verfügbar.",
+      "BACK_TO_OVERVIEW": "Zurück zu allen Blogs"
+    }
+
+  }

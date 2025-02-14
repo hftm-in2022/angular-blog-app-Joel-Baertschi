@@ -1,15 +1,16 @@
-<!-- Zeige Lade- oder Fehlerzustand an -->
 <div class="blog-overview-container">
   <!-- Spinner anzeigen, solange isLoadingList = true -->
   <div class="spinner-container" *ngIf="isLoadingList">
     <mat-progress-spinner
       mode="indeterminate"
       diameter="50"
+      data-testid="loading-spinner"
     ></mat-progress-spinner>
     <p>Loading data...</p>
   </div>
+
   <div *ngIf="errorDetail as e">
-    <p style="color: red">{{ e }}</p>
+    <p data-testid="error-message" style="color: red">{{ e }}</p>
   </div>
 
   <div class="blog-container">
@@ -19,6 +20,7 @@
           [blog]="blog"
           [routerLink]="['/detail', blog.id]"
           routerLinkActive="router-link-active"
+          data-testid="blog-card"
         ></app-blog-overview-card>
       </ng-container>
     </ng-container>
