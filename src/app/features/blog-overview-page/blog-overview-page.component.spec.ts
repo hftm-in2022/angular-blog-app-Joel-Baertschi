@@ -8,6 +8,18 @@ import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BlogStore } from '../../core/stores/blog-state.store';
 
+// ngx-translate für Mehrsprachigkeit
+import {
+  TranslateModule,
+  TranslateLoader,
+  TranslateService,
+  TranslateStore,
+} from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// Mock-Klasse für BlogStore
 class MockBlogStore {
   private _entries = signal({
     pageSize: 1,
@@ -30,7 +42,7 @@ class MockBlogStore {
   private _errorDetail = signal<string | null>(null);
 
   loadAll() {
-    // Method intentionally left blank for mocking purposes
+    // Diese Methode wird für Tests leer gelassen
   }
 
   entries() {
@@ -58,6 +70,11 @@ class MockBlogStore {
   }
 }
 
+// Translate Loader für ngx-translate in Tests
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 describe('BlogOverviewPageComponent', () => {
   let component: BlogOverviewPageComponent;
   let fixture: ComponentFixture<BlogOverviewPageComponent>;
@@ -68,13 +85,25 @@ describe('BlogOverviewPageComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        BlogOverviewPageComponent,
+        BlogOverviewPageComponent, // Standalone-Komponente
         CommonModule,
         RouterTestingModule,
         MatProgressSpinnerModule,
-        BlogOverviewCardComponent,
+        BlogOverviewCardComponent, // Import der Blog-Karten-Komponente
+        HttpClientTestingModule, // Verhindert echte HTTP-Anfragen in Tests
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient],
+          },
+        }),
       ],
-      providers: [{ provide: BlogStore, useValue: mockBlogStore }],
+      providers: [
+        { provide: BlogStore, useValue: mockBlogStore }, // Bereitstellung des Mock-Stores
+        TranslateService,
+        TranslateStore, // WICHTIG: TranslateStore muss bereitgestellt werden
+      ],
     }).compileComponents();
   });
 
